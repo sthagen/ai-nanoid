@@ -353,6 +353,7 @@ Nano ID was ported to many languages. You can use these ports to have
 the same ID generator on the client and server side.
 
 * [C#](https://github.com/codeyu/nanoid-net)
+* [C++](https://github.com/mcmikecreations/nanoid_cpp)
 * [Clojure and ClojureScript](https://github.com/zelark/nano-id)
 * [Crystal](https://github.com/mamantoha/nanoid.cr)
 * [Dart](https://github.com/pd4d10/nanoid-dart)
@@ -360,6 +361,7 @@ the same ID generator on the client and server side.
 * [Go](https://github.com/matoous/go-nanoid)
 * [Elixir](https://github.com/railsmechanic/nanoid)
 * [Haskell](https://github.com/4e6/nanoid-hs)
+* [Janet](https://sr.ht/~statianzo/janet-nanoid/)
 * [Java](https://github.com/aventrix/jnanoid)
 * [Nim](https://github.com/icyphox/nanoid.nim)
 * [PHP](https://github.com/hidehalo/nanoid-php)
