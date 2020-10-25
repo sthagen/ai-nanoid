@@ -6,5 +6,4 @@ tsconfig.json
 coverage/
 
 img/
-.cache
-.gitpod.yml
+.parcel-cache
