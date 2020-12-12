@@ -1,6 +1,6 @@
 {
   "name": "nanoid",
-  "version": "3.1.16",
+  "version": "3.1.20",
   "description": "A tiny (108 bytes), secure URL-friendly unique string ID generator",
   "keywords": [
     "uuid",
@@ -9,9 +9,8 @@
     "url"
   ],
   "scripts": {
-    "test": "jest --coverage && eslint . && check-dts && size-limit --highlight-less && yaspeller *.md",
-    "start": "parcel test/demo/index.html --dist-dir test/demo/build --open",
-    "watch": "size-limit --watch"
+    "test": "jest --coverage && eslint . && check-dts && size-limit && yaspeller *.md",
+    "start": "parcel test/demo/index.html --dist-dir test/demo/build --open"
   },
   "engines": {
     "node": "^10 || ^12 || ^13.7 || ^14 || >=15.0.1"
@@ -30,39 +29,38 @@
   "sideEffects": false,
   "types": "./index.d.ts",
   "devDependencies": {
-    "@logux/eslint-config": "^42.2.0",
-    "@logux/sharec-config": "^0.8.2",
-    "@size-limit/dual-publish": "^4.7.0",
-    "@size-limit/preset-small-lib": "^4.7.0",
-    "@typescript-eslint/eslint-plugin": "^4.6.1",
-    "@typescript-eslint/parser": "^4.6.1",
+    "@logux/eslint-config": "^42.2.3",
+    "@logux/sharec-config": "^0.8.5",
+    "@size-limit/dual-publish": "^4.9.0",
+    "@size-limit/preset-small-lib": "^4.9.0",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
     "benchmark": "^2.1.4",
-    "check-dts": "^0.3.3",
+    "check-dts": "^0.4.1",
     "colorette": "^1.2.1",
     "cuid": "^2.1.8",
-    "dual-publish": "^0.11.0",
-    "eslint": "^7.12.1",
-    "eslint-config-standard": "^16.0.1",
+    "dual-publish": "^1.0.3",
+    "eslint": "^7.14.0",
+    "eslint-config-standard": "^16.0.2",
     "eslint-plugin-es5": "^1.5.0",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.1.0",
+    "eslint-plugin-jest": "^24.1.3",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prefer-let": "^1.1.0",
     "eslint-plugin-prettierx": "^0.14.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-security": "^1.4.0",
-    "eslint-plugin-standard": "^4.0.2",
     "eslint-plugin-unicorn": "^23.0.0",
     "husky": "^4.3.0",
     "jest": "^26.6.3",
-    "lint-staged": "^10.5.1",
-    "parcel": "^2.0.0-nightly.420",
+    "lint-staged": "^10.5.2",
+    "parcel": "nightly",
     "rndm": "^1.2.0",
     "secure-random-string": "^1.1.3",
     "shortid": "^2.2.16",
-    "size-limit": "^4.7.0",
-    "terser": "^5.3.8",
-    "typescript": "^4.0.5",
+    "size-limit": "^4.9.0",
+    "terser": "^5.5.1",
+    "typescript": "^4.1.2",
     "uid-safe": "^2.1.5",
     "uuid": "^8.3.1",
     "yaspeller": "^7.0.0"
@@ -76,7 +74,7 @@
     {
       "name": "customAlphabet",
       "import": "{ customAlphabet }",
-      "limit": "142 B"
+      "limit": "141 B"
     },
     {
       "name": "urlAlphabet",
@@ -189,11 +187,12 @@
       "Rollup",
       "transpile",
       "workaround",
-      "Deno"
+      "Deno",
+      "polyfill"
     ]
   },
   "sharec": {
     "config": "@logux/sharec-config",
-    "version": "0.8.2"
+    "version": "0.8.5"
   }
 }

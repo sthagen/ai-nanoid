@@ -10,7 +10,7 @@ A tiny, secure, URL-friendly, unique string ID generator for JavaScript.
 
 * **Small.** 108 bytes (minified and gzipped). No dependencies.
   [Size Limit] controls the size.
-* **Fast.** It is 40% faster than UUID.
+* **Fast.** It is 60% faster than UUID.
 * **Safe.** It uses cryptographically strong random APIs.
   Can be used in clusters.
 * **Compact.** It uses a larger alphabet than UUID (`A-Za-z0-9_-`).
@@ -47,7 +47,6 @@ Supports modern browsers, IE [with Babel], Node.js and React Native.
   * [Create React App](#create-react-app)
   * [React Native](#react-native)
   * [Rollup](#rollup)
-  * [Expo](#expo)
   * [PouchDB and CouchDB](#pouchdb-and-couchdb)
   * [Mongoose](#mongoose)
   * [ES Modules](#es-modules)
@@ -74,9 +73,9 @@ There are three main differences between Nano ID and UUID v4:
 
 1. Nano ID uses a bigger alphabet, so a similar number of random bits
    are packed in just 21 symbols instead of 36.
-2. Nano ID code is 3 times less than `uuid/v4` package:
-   108 bytes instead of 345.
-3. Because of memory allocation tricks, Nano ID is 16% faster than UUID.
+2. Nano ID code is **4.5 times less** than `uuid/v4` package:
+   108 bytes instead of 483.
+3. Because of memory allocation tricks, Nano ID is **60%** faster than UUID.
 
 
 ## Benchmark
@@ -85,8 +84,8 @@ There are three main differences between Nano ID and UUID v4:
 $ node ./test/benchmark.js
 nanoid                    2,280,683 ops/sec
 customAlphabet            1,851,117 ops/sec
-uid.sync                    313,306 ops/sec
 uuid v4                   1,348,425 ops/sec
+uid.sync                    313,306 ops/sec
 secure-random-string        294,161 ops/sec
 cuid                        158,988 ops/sec
 shortid                      37,222 ops/sec
@@ -139,7 +138,7 @@ Test configuration: Dell XPS 2-in-1 7390, Fedora 32, Node.js 15.1.
   Tidelift will coordinate the fix and disclosure.
 
 [Secure random values (in Node.js)]: https://gist.github.com/joepie91/7105003c3b26e65efcea63f3db82dfba
-[better algorithm]:                  https://github.com/ai/nanoid/blob/master/index.js
+[better algorithm]:                  https://github.com/ai/nanoid/blob/main/index.js
 
 
 ## Usage
@@ -235,7 +234,8 @@ Use Nano ID 2 `npm i nanoid@^2.0.0` until Create React App 4.0 release.
 
 ### React Native
 
-React Native does not have built-in random generator.
+React Native does not have built-in random generator. The following polyfill
+works for plain React Native and Expo starting with `39.x`.
 
 1. Check [`react-native-get-random-values`] docs and install it.
 2. Import it before Nano ID.
@@ -264,25 +264,6 @@ For Rollup you will need [`@rollup/plugin-replace`] to replace
 ```
 
 [`@rollup/plugin-replace`]: https://github.com/rollup/plugins/tree/master/packages/replace
-
-
-### Expo
-
-If you use Expo in React Native, you need a different workaround.
-
-1. Install [`expo-random`](https://www.npmjs.com/package/expo-random).
-2. Use `nanoid/async` instead of `nanoid`.
-3. Import `index.native.js` file directly.
-
-```js
-import { nanoid } from 'nanoid/async/index.native'
-
-async function createUser () {
-  user.id = await nanoid()
-}
-```
-
-[`expo-random`]: https://www.npmjs.com/package/expo-random
 
 
 ### PouchDB and CouchDB
