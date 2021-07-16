@@ -1,7 +1,7 @@
 let crypto = require('crypto')
 
 global.crypto = {
-  getRandomValues (array) {
+  getRandomValues(array) {
     for (let i = 0; i < array.length; i++) {
       array[i] = Math.floor(Math.random() * 256)
     }
@@ -13,7 +13,7 @@ let { urlAlphabet } = require('..')
 let browser = require('../async/index.browser.js')
 let node = require('../async/index.js')
 
-function times (size, callback) {
+function times(size, callback) {
   let array = []
   for (let i = 0; i < size; i++) {
     array.push(1)
@@ -25,12 +25,13 @@ for (let type of ['node', 'browser']) {
   describe(`${type}`, () => {
     let { nanoid, customAlphabet, random } = type === 'node' ? node : browser
 
+    function mock(callback) {
+      crypto.randomFill = callback
+      jest.resetModules()
+      nanoid = require('../async').nanoid
+    }
+
     describe('nanoid', () => {
-      function mock (callback) {
-        crypto.randomFill = callback
-        jest.resetModules()
-        nanoid = require('../async').nanoid
-      }
       if (type === 'node') {
         let originFill = crypto.randomFill
         afterEach(() => {
@@ -127,6 +128,13 @@ for (let type of ['node', 'browser']) {
     })
 
     describe('customAlphabet', () => {
+      if (type === 'node') {
+        let originFill = crypto.randomFill
+        afterEach(() => {
+          mock(originFill)
+        })
+      }
+
       it('has options', async () => {
         let nanoidA = customAlphabet('a', 5)
         let id = await nanoidA()
@@ -160,6 +168,21 @@ for (let type of ['node', 'browser']) {
         }
         expect(max - min).toBeLessThanOrEqual(0.05)
       })
+
+      if (type === 'node') {
+        it('should call random two times', async () => {
+          let randomFillMock = jest.fn((buffer, callback) =>
+            callback(null, [220, 215, 129, 35, 242, 202, 137, 180])
+          )
+          mock(randomFillMock)
+
+          let nanoidA = customAlphabet('a', 5)
+          let id = await nanoidA()
+
+          expect(randomFillMock).toHaveBeenCalledTimes(2)
+          expect(id).toEqual('aaaaa')
+        })
+      }
     })
   })
 }
