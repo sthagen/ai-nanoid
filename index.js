@@ -7,10 +7,10 @@ let { urlAlphabet } = require('./url-alphabet')
 // pool. The pool is a Buffer that is larger than the initial random
 // request size by this multiplier. The pool is enlarged if subsequent
 // requests exceed the maximum buffer size.
-const POOL_SIZE_MULTIPLIER = 32
+const POOL_SIZE_MULTIPLIER = 128
 let pool, poolOffset
 
-let random = bytes => {
+let fillPool = bytes => {
   if (!pool || pool.length < bytes) {
     pool = Buffer.allocUnsafe(bytes * POOL_SIZE_MULTIPLIER)
     crypto.randomFillSync(pool)
@@ -19,10 +19,13 @@ let random = bytes => {
     crypto.randomFillSync(pool)
     poolOffset = 0
   }
-
-  let res = pool.subarray(poolOffset, poolOffset + bytes)
   poolOffset += bytes
-  return res
+}
+
+let random = bytes => {
+  // `-=` convert `bytes` to number to prevent `valueOf` abusing
+  fillPool((bytes -= 0))
+  return pool.subarray(poolOffset - bytes, poolOffset)
 }
 
 let customRandom = (alphabet, size, getRandom) => {
@@ -63,16 +66,17 @@ let customRandom = (alphabet, size, getRandom) => {
 let customAlphabet = (alphabet, size) => customRandom(alphabet, size, random)
 
 let nanoid = (size = 21) => {
-  let bytes = random(size)
+  // `-=` convert `size` to number to prevent `valueOf` abusing
+  fillPool((size -= 0))
   let id = ''
-  // A compact alternative for `for (let i = 0; i < size; i++)`.
-  while (size--) {
+  // We are reading directly from the random pool to avoid creating new array
+  for (let i = poolOffset - size; i < poolOffset; i++) {
     // It is incorrect to use bytes exceeding the alphabet size.
     // The following mask reduces the random byte in the 0-255 value
     // range to the 0-63 value range. Therefore, adding hacks, such
     // as empty string fallback or magic numbers, is unneccessary because
     // the bitmask trims bytes down to the alphabet size.
-    id += urlAlphabet[bytes[size] & 63]
+    id += urlAlphabet[pool[i] & 63]
   }
   return id
 }

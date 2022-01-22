@@ -1,9 +1,5 @@
-yarn-error.log
-yarn.lock
-
 test/
 tsconfig.json
 coverage/
 
 img/
-.parcel-cache
