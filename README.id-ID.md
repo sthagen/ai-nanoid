@@ -313,15 +313,12 @@ import { nanoid } from 'nanoid'
 
 ### Rollup
 
-Untuk Rollup, dibutuhkan [`@rollup/plugin-node-resolve`](https://github.com/rollup/plugins/tree/master/packages/node-resolve) untuk versi browser dan [`@rollup/plugin-replace`](https://github.com/rollup/plugins/tree/master/packages/replace) untuk menggantikan `process.env.NODE_ENV`.
+Untuk Rollup, dibutuhkan [`@rollup/plugin-node-resolve`](https://github.com/rollup/plugins/tree/master/packages/node-resolve) untuk versi browser.
 
 ```js
 plugins: [
   nodeResolve({
     browser: true
-  }),
-  replace({
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
   })
 ]
 ```
@@ -388,7 +385,7 @@ Nano ID telah bermigrasi ke berbagai macam bahasa. Seluruh versi dapat digunakan
 - [Deno](https://github.com/ianfabs/nanoid)
 - [Go](https://github.com/matoous/go-nanoid)
 - [Elixir](https://github.com/railsmechanic/nanoid)
-- [Haskell](https://github.com/4e6/nanoid-hs)
+- [Haskell](https://github.com/MichelBoucey/NanoID)
 - [Janet](https://sr.ht/~statianzo/janet-nanoid/)
 - [Java](https://github.com/aventrix/jnanoid)
 - [Nim](https://github.com/icyphox/nanoid.nim)
@@ -396,11 +393,13 @@ Nano ID telah bermigrasi ke berbagai macam bahasa. Seluruh versi dapat digunakan
 - [Perl](https://github.com/tkzwtks/Nanoid-perl)
 - [PHP](https://github.com/hidehalo/nanoid-php)
 - [Python](https://github.com/puyuan/py-nanoid) with [dictionaries](https://pypi.org/project/nanoid-dictionary)
+- [R](https://github.com/hrbrmstr/nanoid) (with dictionaries)
 - [Ruby](https://github.com/radeno/nanoid.rb)
 - [Rust](https://github.com/nikolay-govorov/nanoid)
 - [Swift](https://github.com/antiflasher/NanoID)
 - [Unison](https://share.unison-lang.org/latest/namespaces/hojberg/nanoid)
 - [V](https://github.com/invipal/nanoid)
+- [Zig](https://github.com/SasLuca/zig-nanoid)
 
 Untuk environment lainnya, [CLI](#cli) tersedia untuk melakukan generasi ID dari command line / Terminal.
 

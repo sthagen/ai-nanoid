@@ -284,6 +284,15 @@ user.id = nanoid()
 Алфавит должен содержать ≤256 символов. Иначе мы не сможем гарантировать
 непредсказуемость ID.
 
+Длину ID можно менять не только в `customAlphabet()`, но и при вызове
+генератора, который она вернёт:
+
+```js
+import { customAlphabet } from 'nanoid'
+const nanoid = customAlphabet('1234567890abcdef', 10)
+model.id = nanoid(5) //=> "f01a2"
+```
+
 [на нашем калькуляторе]: https://alex7kom.github.io/nano-nanoid-cc/
 [`nanoid-dictionary`]: https://github.com/CyberAP/nanoid-dictionary
 
@@ -383,22 +392,17 @@ import { nanoid } from 'nanoid'
 
 ### Rollup
 
-Для Rollup понадобятся плагины [`@rollup/plugin-node-resolve`]
-и [`@rollup/plugin-replace`].
+Для Rollup понадобятся плагины [`@rollup/plugin-node-resolve`].
 
 ```js
 plugins: [
   nodeResolve({
     browser: true
-  }),
-  replace({
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
   })
 ]
 ```
 
 [`@rollup/plugin-node-resolve`]: https://github.com/rollup/plugins/tree/master/packages/node-resolve
-[`@rollup/plugin-replace`]: https://github.com/rollup/plugins/tree/master/packages/replace
 
 
 ### PouchDB и CouchDB
@@ -485,7 +489,7 @@ Nano ID был портирован на множество языков. Это
 - [Deno](https://github.com/ianfabs/nanoid)
 - [Go](https://github.com/matoous/go-nanoid)
 - [Elixir](https://github.com/railsmechanic/nanoid)
-- [Haskell](https://github.com/4e6/nanoid-hs)
+- [Haskell](https://github.com/MichelBoucey/NanoID)
 - [Janet](https://sr.ht/~statianzo/janet-nanoid/)
 - [Java](https://github.com/aventrix/jnanoid)
 - [Nim](https://github.com/icyphox/nanoid.nim)
@@ -493,11 +497,13 @@ Nano ID был портирован на множество языков. Это
 - [PHP](https://github.com/hidehalo/nanoid-php)
 - [Python](https://github.com/puyuan/py-nanoid)
   со [словарями](https://pypi.org/project/nanoid-dictionary)
+- [R](https://github.com/hrbrmstr/nanoid) (со словарями)
 - [Ruby](https://github.com/radeno/nanoid.rb)
 - [Rust](https://github.com/nikolay-govorov/nanoid)
 - [Swift](https://github.com/antiflasher/NanoID)
 * [Unison](https://share.unison-lang.org/latest/namespaces/hojberg/nanoid)
 - [V](https://github.com/invipal/nanoid)
+- [Zig](https://github.com/SasLuca/zig-nanoid)
 
 Для остальных сред можно использовать Nano ID [для терминала].
 

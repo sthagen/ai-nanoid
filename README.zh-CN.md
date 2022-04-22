@@ -383,21 +383,16 @@ import { nanoid } from 'nanoid'
 ### Rollup
 
 对于 Rollup 来说，你需要 [`@rollup/plugin-node-resolve`] 来绑定浏览器版本。
-除了这个库，还需要 [`@rollup/plugin-replace`] 来替换 `process.env.NODE_ENV`。
 
 ```js
   plugins: [
     nodeResolve({
       browser: true
-    }),
-    replace({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     })
   ]
 ```
 
 [`@rollup/plugin-node-resolve`]: https://github.com/rollup/plugins/tree/master/packages/node-resolve
-[`@rollup/plugin-replace`]: https://github.com/rollup/plugins/tree/master/packages/replace
 
 
 ### PouchDB and CouchDB
@@ -472,7 +467,7 @@ Nano ID 已被移植到许多语言。 你可以使用下面这些移植，获�
 * [Deno](https://github.com/ianfabs/nanoid)
 * [Go](https://github.com/matoous/go-nanoid)
 * [Elixir](https://github.com/railsmechanic/nanoid)
-* [Haskell](https://github.com/4e6/nanoid-hs)
+* [Haskell](https://github.com/MichelBoucey/NanoID)
 * [Janet](https://sr.ht/~statianzo/janet-nanoid/)
 * [Java](https://github.com/aventrix/jnanoid)
 * [Nim](https://github.com/icyphox/nanoid.nim)
@@ -480,11 +475,13 @@ Nano ID 已被移植到许多语言。 你可以使用下面这些移植，获�
 * [PHP](https://github.com/hidehalo/nanoid-php)
 * [Python](https://github.com/puyuan/py-nanoid)
   with [dictionaries](https://pypi.org/project/nanoid-dictionary)
+* [R](https://github.com/hrbrmstr/nanoid) (with dictionaries)
 * [Ruby](https://github.com/radeno/nanoid.rb)
 * [Rust](https://github.com/nikolay-govorov/nanoid)
 * [Swift](https://github.com/antiflasher/NanoID)
 * [Unison](https://share.unison-lang.org/latest/namespaces/hojberg/nanoid)
 * [V](https://github.com/invipal/nanoid)
+* [Zig](https://github.com/SasLuca/zig-nanoid)
 
 此外，[CLI] 还可用于从命令行生成 ID。
 

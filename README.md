@@ -252,15 +252,6 @@ const nanoid = customAlphabet('1234567890abcdef', 10)
 model.id = nanoid() //=> "4f90d13a42"
 ```
 
-Check the safety of your custom alphabet and ID size in our
-[ID collision probability] calculator. For more alphabets, check out the options
-in [`nanoid-dictionary`].
-
-Alphabet must contain 256 symbols or less.
-Otherwise, the security of the internal generator algorithm is not guaranteed.
-
-Customizable asynchronous and non-secure APIs are also available:
-
 ```js
 import { customAlphabet } from 'nanoid/async'
 const nanoid = customAlphabet('1234567890abcdef', 10)
@@ -273,6 +264,22 @@ async function createUser () {
 import { customAlphabet } from 'nanoid/non-secure'
 const nanoid = customAlphabet('1234567890abcdef', 10)
 user.id = nanoid()
+```
+
+Check the safety of your custom alphabet and ID size in our
+[ID collision probability] calculator. For more alphabets, check out the options
+in [`nanoid-dictionary`].
+
+Alphabet must contain 256 symbols or less.
+Otherwise, the security of the internal generator algorithm is not guaranteed.
+
+In addition to setting a default size, you can change the ID size when calling
+the function:
+
+```js
+import { customAlphabet } from 'nanoid'
+const nanoid = customAlphabet('1234567890abcdef', 10)
+model.id = nanoid(5) //=> "f01a2"
 ```
 
 [ID collision probability]: https://alex7kom.github.io/nano-nanoid-cc/
@@ -309,6 +316,10 @@ const nanoid = customRandom(urlAlphabet, 10, random)
 ```
 
 Asynchronous and non-secure APIs are not available for `customRandom`.
+
+Note, that between Nano ID versions we may change random generator
+call sequence. If you are using seed-based generators, we do not guarantee
+the same result.
 
 
 ## Usage
@@ -394,22 +405,17 @@ import { nanoid } from 'nanoid'
 ### Rollup
 
 For Rollup you will need [`@rollup/plugin-node-resolve`] to bundle browser version
-of this library and [`@rollup/plugin-replace`] to replace
-`process.env.NODE_ENV`:
+of this library.:
 
 ```js
   plugins: [
     nodeResolve({
       browser: true
-    }),
-    replace({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     })
   ]
 ```
 
 [`@rollup/plugin-node-resolve`]: https://github.com/rollup/plugins/tree/master/packages/node-resolve
-[`@rollup/plugin-replace`]: https://github.com/rollup/plugins/tree/master/packages/replace
 
 
 ### PouchDB and CouchDB
@@ -497,7 +503,7 @@ the same ID generator on the client and server side.
 * [Deno](https://github.com/ianfabs/nanoid)
 * [Go](https://github.com/matoous/go-nanoid)
 * [Elixir](https://github.com/railsmechanic/nanoid)
-* [Haskell](https://github.com/4e6/nanoid-hs)
+* [Haskell](https://github.com/MichelBoucey/NanoID)
 * [Janet](https://sr.ht/~statianzo/janet-nanoid/)
 * [Java](https://github.com/aventrix/jnanoid)
 * [Nim](https://github.com/icyphox/nanoid.nim)
@@ -506,11 +512,13 @@ the same ID generator on the client and server side.
 * [PHP](https://github.com/hidehalo/nanoid-php)
 * [Python](https://github.com/puyuan/py-nanoid)
   with [dictionaries](https://pypi.org/project/nanoid-dictionary)
+* [R](https://github.com/hrbrmstr/nanoid) (with dictionaries)
 * [Ruby](https://github.com/radeno/nanoid.rb)
 * [Rust](https://github.com/nikolay-govorov/nanoid)
 * [Swift](https://github.com/antiflasher/NanoID)
 * [Unison](https://share.unison-lang.org/latest/namespaces/hojberg/nanoid)
 * [V](https://github.com/invipal/nanoid)
+* [Zig](https://github.com/SasLuca/zig-nanoid)
 
 For other environments, [CLI] is available to generate IDs from a command line.
 
