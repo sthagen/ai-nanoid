@@ -12,7 +12,6 @@ A tiny, secure, URL-friendly, unique string ID generator for JavaScript.
 
 * **Small.** 130 bytes (minified and gzipped). No dependencies.
   [Size Limit] controls the size.
-* **Fast.** It is 2 times faster than UUID.
 * **Safe.** It uses hardware random generator. Can be used in clusters.
 * **Short IDs.** It uses a larger alphabet than UUID (`A-Za-z0-9_-`).
   So ID size was reduced from 36 to 21 symbols.
@@ -70,40 +69,39 @@ There are three main differences between Nano ID and UUID v4:
 
 1. Nano ID uses a bigger alphabet, so a similar number of random bits
    are packed in just 21 symbols instead of 36.
-2. Nano ID code is **4 times less** than `uuid/v4` package:
-   130 bytes instead of 483.
-3. Because of memory allocation tricks, Nano ID is **2 times** faster than UUID.
+2. Nano ID code is **4 times smaller** than `uuid/v4` package:
+   130 bytes instead of 423.
 
 
 ## Benchmark
 
 ```rust
 $ node ./test/benchmark.js
-crypto.randomUUID         25,603,857 ops/sec
-@napi-rs/uuid              9,973,819 ops/sec
-uid/secure                 8,234,798 ops/sec
-@lukeed/uuid               7,464,706 ops/sec
-nanoid                     5,616,592 ops/sec
-customAlphabet             3,115,207 ops/sec
-uuid v4                    1,535,753 ops/sec
-secure-random-string         388,226 ops/sec
-uid-safe.sync                363,489 ops/sec
-cuid                         187,343 ops/sec
-shortid                       45,758 ops/sec
+crypto.randomUUID         21,119,429 ops/sec
+uuid v4                   20,368,447 ops/sec
+@napi-rs/uuid             11,493,890 ops/sec
+uid/secure                 8,409,962 ops/sec
+@lukeed/uuid               6,871,405 ops/sec
+nanoid                     5,652,148 ops/sec
+customAlphabet             3,565,656 ops/sec
+secure-random-string         394,201 ops/sec
+uid-safe.sync                393,176 ops/sec
+cuid                         208,131 ops/sec
+shortid                       49,916 ops/sec
 
 Async:
-nanoid/async                  96,094 ops/sec
-async customAlphabet          97,184 ops/sec
-async secure-random-string    92,794 ops/sec
-uid-safe                      90,684 ops/sec
+nanoid/async                 135,260 ops/sec
+async customAlphabet         136,059 ops/sec
+async secure-random-string   135,213 ops/sec
+uid-safe                     119,587 ops/sec
 
 Non-secure:
-uid                       67,376,692 ops/sec
-nanoid/non-secure          2,849,639 ops/sec
-rndm                       2,674,806 ops/sec
+uid                       58,860,241 ops/sec
+nanoid/non-secure          2,744,615 ops/sec
+rndm                       2,718,063 ops/sec
 ```
 
-Test configuration: ThinkPad X1 Carbon Gen 9, Fedora 34, Node.js 16.10.
+Test configuration: ThinkPad X1 Carbon Gen 9, Fedora 36, Node.js 18.9.
 
 
 ## Security

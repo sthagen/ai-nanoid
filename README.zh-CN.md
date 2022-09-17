@@ -12,7 +12,6 @@
 
 * **小巧.** 130 bytes (已压缩和 gzipped)。 没有依赖。
   [Size Limit] 控制大小。
-* **快速.** 它比 UUID 快 60%。
 * **安全.** 它使用加密的强随机 API。可在集群中使用。
 * **紧凑.** 它使用比 UUID（`A-Za-z0-9_-`）更大的字母表。
   因此，ID 大小从36个符号减少到21个符号。
@@ -69,7 +68,7 @@ Nano ID 和 UUID v4之间有三个主要区别:
 
 1. Nano ID 使用更大的字母表，所以类似数量的随机位
    被包装在21个符号中，而不是36个。
-2. Nano ID 代码比 `uuid/v4` 包少 **4倍**: 130字节而不是483字节.
+2. Nano ID 代码比 `uuid/v4` 包少 **4倍**: 130字节而不是423字节.
 3. 由于内存分配的技巧，Nano ID 比 UUID 快 **60%**。
 
 
@@ -77,31 +76,31 @@ Nano ID 和 UUID v4之间有三个主要区别:
 
 ```rust
 $ node ./test/benchmark.js
-crypto.randomUUID         25,603,857 ops/sec
-@napi-rs/uuid              9,973,819 ops/sec
-uid/secure                 8,234,798 ops/sec
-@lukeed/uuid               7,464,706 ops/sec
-nanoid                     5,616,592 ops/sec
-customAlphabet             3,115,207 ops/sec
-uuid v4                    1,535,753 ops/sec
-secure-random-string         388,226 ops/sec
-uid-safe.sync                363,489 ops/sec
-cuid                         187,343 ops/sec
-shortid                       45,758 ops/sec
+crypto.randomUUID         21,119,429 ops/sec
+uuid v4                   20,368,447 ops/sec
+@napi-rs/uuid             11,493,890 ops/sec
+uid/secure                 8,409,962 ops/sec
+@lukeed/uuid               6,871,405 ops/sec
+nanoid                     5,652,148 ops/sec
+customAlphabet             3,565,656 ops/sec
+secure-random-string         394,201 ops/sec
+uid-safe.sync                393,176 ops/sec
+cuid                         208,131 ops/sec
+shortid                       49,916 ops/sec
 
 Async:
-nanoid/async                  96,094 ops/sec
-async customAlphabet          97,184 ops/sec
-async secure-random-string    92,794 ops/sec
-uid-safe                      90,684 ops/sec
+nanoid/async                 135,260 ops/sec
+async customAlphabet         136,059 ops/sec
+async secure-random-string   135,213 ops/sec
+uid-safe                     119,587 ops/sec
 
 Non-secure:
-uid                       67,376,692 ops/sec
-nanoid/non-secure          2,849,639 ops/sec
-rndm                       2,674,806 ops/sec
+uid                       58,860,241 ops/sec
+nanoid/non-secure          2,744,615 ops/sec
+rndm                       2,718,063 ops/sec
 ```
 
-测试配置: ThinkPad X1 Carbon Gen 9, Fedora 34, Node.js 16.10.
+测试配置: ThinkPad X1 Carbon Gen 9, Fedora 36, Node.js 18.9.
 
 
 ## 安全性
@@ -136,7 +135,7 @@ rndm                       2,674,806 ops/sec
 npm install --save nanoid
 ```
 
-对于快速的骇客用法，你可以从 CDN 加载 Nano ID。但是，它不建议
+想要快速上手尝试，你可以从 CDN 加载 Nano ID。但是，它不建议
 在生产中使用，因为它的加载性能较低。
 
 ```js
