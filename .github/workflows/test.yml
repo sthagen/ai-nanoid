@@ -4,6 +4,8 @@ on:
     branches:
       - main
   pull_request:
+permissions:
+  contents: read
 jobs:
   full:
     name: Node.js Latest Full
@@ -18,7 +20,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 19
           cache: pnpm
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --ignore-scripts
@@ -31,6 +33,7 @@ jobs:
     strategy:
       matrix:
         node-version:
+          - 18
           - 16
           - 14
     name: Node.js ${{ matrix.node-version }} Quick

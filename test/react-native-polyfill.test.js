@@ -8,19 +8,22 @@ test.before(() => {
     product: 'ReactNative'
   }
 
-  global.crypto = {
-    getRandomValues(array) {
-      for (let i = 0; i < array.length; i++) {
-        array[i] = Math.floor(Math.random() * 256)
+  Object.defineProperty(global, 'crypto', {
+    configurable: true,
+    value: {
+      getRandomValues(array) {
+        for (let i = 0; i < array.length; i++) {
+          array[i] = Math.floor(Math.random() * 256)
+        }
+        return array
       }
-      return array
     }
-  }
+  })
 })
 
 test.after(() => {
   delete global.navigator
-  delete global.crypto
+  Object.defineProperty(global, 'crypto', { value: undefined })
 })
 
 test('works with polyfill', () => {
