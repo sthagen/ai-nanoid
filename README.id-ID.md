@@ -57,11 +57,10 @@ Nano ID dapat dibandingkan dengan UUID v4 (yang berbasis acak / _randomly genera
 
 > Agar timbul kemungkinan collison / duplikasi ID satu dalam satu miliar, perlu dihasilkan 103 triliun UUID v4.
 
-Ada tiga buah perbedaan antara Nano ID dan UUID v4:
+Ada dua buah perbedaan antara Nano ID dan UUID v4:
 
 1. Nano ID menggunakan alfabet yang lebih lebar, karenanya jumlah bita acak dapat 'dikemas' dalam 21 simbol, bukan 36 simbol.
 2. Kode sumber Nano ID **empat kali lebih kecil** ketimbang `uuid/v4`: 130 bytes dibanding 423 bytes.
-3. Karena menggunakan trik alokasi memori, Nano ID **dua kali lebih cepat** ketimbang UUID.
 
 
 ## Benchmark
@@ -77,7 +76,6 @@ nanoid                     5,652,148 ops/sec
 customAlphabet             3,565,656 ops/sec
 secure-random-string         394,201 ops/sec
 uid-safe.sync                393,176 ops/sec
-cuid                         208,131 ops/sec
 shortid                       49,916 ops/sec
 
 Async:

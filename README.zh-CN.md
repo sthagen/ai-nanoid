@@ -64,12 +64,11 @@ Nano ID 与 UUID v4 (基于随机) 相当。
 > 要想有十亿分之一的重复机会,
 > 必须产生103万亿个版本4的ID.
 
-Nano ID 和 UUID v4之间有三个主要区别:
+Nano ID 和 UUID v4之间有两个主要区别:
 
 1. Nano ID 使用更大的字母表，所以类似数量的随机位
    被包装在21个符号中，而不是36个。
 2. Nano ID 代码比 `uuid/v4` 包少 **4倍**: 130字节而不是423字节.
-3. 由于内存分配的技巧，Nano ID 比 UUID 快 **60%**。
 
 
 ## 基准值
@@ -85,7 +84,6 @@ nanoid                     5,652,148 ops/sec
 customAlphabet             3,565,656 ops/sec
 secure-random-string         394,201 ops/sec
 uid-safe.sync                393,176 ops/sec
-cuid                         208,131 ops/sec
 shortid                       49,916 ops/sec
 
 Async:

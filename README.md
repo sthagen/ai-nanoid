@@ -65,7 +65,7 @@ It has a similar number of random bits in the ID
 > For there to be a one in a billion chance of duplication,
 > 103 trillion version 4 IDs must be generated.
 
-There are three main differences between Nano ID and UUID v4:
+There are two main differences between Nano ID and UUID v4:
 
 1. Nano ID uses a bigger alphabet, so a similar number of random bits
    are packed in just 21 symbols instead of 36.
@@ -86,7 +86,6 @@ nanoid                     5,652,148 ops/sec
 customAlphabet             3,565,656 ops/sec
 secure-random-string         394,201 ops/sec
 uid-safe.sync                393,176 ops/sec
-cuid                         208,131 ops/sec
 shortid                       49,916 ops/sec
 
 Async:
