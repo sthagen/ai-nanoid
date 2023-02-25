@@ -137,6 +137,13 @@ Test configuration: ThinkPad X1 Carbon Gen 9, Fedora 36, Node.js 18.9.
 npm install --save nanoid
 ```
 
+Nano ID 4 works only with ESM projects in tests or Node.js scripts.
+For CommonJS you need Nano ID 3.x (we still support it):
+
+```bash
+npm install --save nanoid@3
+```
+
 For quick hacks, you can load Nano ID from CDN. Though, it is not recommended
 to be used in production because of the lower loading performance.
 
@@ -464,7 +471,7 @@ the same ID generator on the client and server side.
 * [Crystal](https://github.com/mamantoha/nanoid.cr)
 * [Dart & Flutter](https://github.com/pd4d10/nanoid-dart)
 * [Deno](https://github.com/ianfabs/nanoid)
-* [Go](https://github.com/jaevor/go-nanoid)
+* [Go](https://github.com/matoous/go-nanoid)
 * [Elixir](https://github.com/railsmechanic/nanoid)
 * [Haskell](https://github.com/MichelBoucey/NanoID)
 * [Haxe](https://github.com/flashultra/uuid)
