@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 4.0.2
+* Added [link](https://github.com/sponsors/ai) to Github Sponsors.
+
 ## 4.0.1
 * Reduced npm package size (by @HiChen404).
 
@@ -9,6 +12,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   We will support 3.x branch with CommonJS for users who can’t migrate to ESM.
 * Removed Node.js 10 and Node.js 12 support.
 * Reduced npm package size.
+
+## 3.3.6
+* Fixed package.
+
+## 3.3.5
+* Backport funding information.
 
 ## 3.3.4
 * Fixed `--help` in CLI (by @Lete114).
