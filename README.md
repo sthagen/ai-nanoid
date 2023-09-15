@@ -23,16 +23,16 @@ import { nanoid } from 'nanoid'
 model.id = nanoid() //=> "V1StGXR8_Z5jdHi6B-myT"
 ```
 
-Supports modern browsers, IE [with Babel], Node.js and React Native.
+---
+
+<img src="https://cdn.evilmartians.com/badges/logo-no-label.svg" alt="" width="22" height="16" />  Made in <b><a href="https://evilmartians.com/?utm_source=nanoid&utm_campaign=devtools-button&utm_medium=github">Evil Martians</a></b>, product consulting for <b>developer tools</b>.
+
+---
 
 [online tool]: https://gitpod.io/#https://github.com/ai/nanoid/
 [with Babel]:  https://developer.epages.com/blog/coding/how-to-transpile-node-modules-with-babel-and-webpack-in-a-monorepo/
 [Size Limit]:  https://github.com/ai/size-limit
 
-<a href="https://evilmartians.com/?utm_source=nanoid">
-  <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
-       alt="Sponsored by Evil Martians" width="236" height="54">
-</a>
 
 ## Table of Contents
 
@@ -42,7 +42,6 @@ Supports modern browsers, IE [with Babel], Node.js and React Native.
 * [Install](#install)
 * [API](#api)
   * [Blocking](#blocking)
-  * [Async](#async)
   * [Non-Secure](#non-secure)
   * [Custom Alphabet or Size](#custom-alphabet-or-size)
   * [Custom Random Bytes Generator](#custom-random-bytes-generator)
@@ -89,12 +88,6 @@ secure-random-string         394,201 ops/sec
 uid-safe.sync                393,176 ops/sec
 shortid                       49,916 ops/sec
 
-Async:
-nanoid/async                 135,260 ops/sec
-async customAlphabet         136,059 ops/sec
-async secure-random-string   135,213 ops/sec
-uid-safe                     119,587 ops/sec
-
 Non-secure:
 uid                       58,860,241 ops/sec
 nanoid/non-secure          2,744,615 ops/sec
@@ -138,7 +131,7 @@ Test configuration: ThinkPad X1 Carbon Gen 9, Fedora 36, Node.js 18.9.
 npm install --save nanoid
 ```
 
-Nano ID 4 works only with ESM projects, in tests or Node.js scripts.
+Nano ID 5 works only with ESM projects, in tests or Node.js scripts.
 For CommonJS you need Nano ID 3.x (we still support it):
 
 ```bash
@@ -155,7 +148,7 @@ import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid/nanoid.js'
 
 ## API
 
-Nano ID has 3 APIs: normal (blocking), asynchronous, and non-secure.
+Nano ID has 2 APIs: normal and non-secure.
 
 By default, Nano ID uses URL-friendly symbols (`A-Za-z0-9_-`) and returns an ID
 with 21 characters (to have a collision probability similar to UUID v4).
@@ -189,36 +182,6 @@ or a [random generator](#custom-random-bytes-generator).
 [ID collision probability]: https://zelark.github.io/nano-id-cc/
 
 
-### Async
-
-To generate hardware random bytes, CPU collects electromagnetic noise.
-For most cases, entropy will be already collected.
-
-In the synchronous API during the noise collection, the CPU is busy and
-cannot do anything useful (for instance, process another HTTP request).
-
-Using the asynchronous API of Nano ID, another code can run during
-the entropy collection.
-
-```js
-import { nanoid } from 'nanoid/async'
-
-async function createUser() {
-  user.id = await nanoid()
-}
-```
-
-Read more about entropy collection in [`crypto.randomBytes`] docs.
-
-Unfortunately, you will lose Web Crypto API advantages in a browser
-if you use the asynchronous API. So, currently, in the browser, you are limited
-with either security (`nanoid`), asynchronous behavior (`nanoid/async`),
-or non-secure behavior (`nanoid/non-secure`) that will be explained
-in the next part of the documentation.
-
-[`crypto.randomBytes`]: https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback
-
-
 ### Non-Secure
 
 By default, Nano ID uses hardware random bytes generation for security
@@ -240,14 +203,6 @@ with your own alphabet and ID size.
 import { customAlphabet } from 'nanoid'
 const nanoid = customAlphabet('1234567890abcdef', 10)
 model.id = nanoid() //=> "4f90d13a42"
-```
-
-```js
-import { customAlphabet } from 'nanoid/async'
-const nanoid = customAlphabet('1234567890abcdef', 10)
-async function createUser() {
-  user.id = await nanoid()
-}
 ```
 
 ```js
@@ -304,8 +259,6 @@ you can get the default alphabet using the `urlAlphabet`.
 const { customRandom, urlAlphabet } = require('nanoid')
 const nanoid = customRandom(urlAlphabet, 10, random)
 ```
-
-Asynchronous and non-secure APIs are not available for `customRandom`.
 
 Note, that between Nano ID versions we may change random generator
 call sequence. If you are using seed-based generators, we do not guarantee
@@ -409,22 +362,6 @@ nanoid() //=> "Uakgb_J5m9g-0JDMbcJqLJ"
 ```
 
 Note: non-secure IDs are more prone to collision attacks.
-
-
-### Jest
-
-Jest test runner with `jest-environment-jsdom` will use browser’s version
-of Nano ID. You will need polyfill for Web Crypto API.
-
-```js
-import { randomFillSync } from 'crypto'
-
-window.crypto = {
-  getRandomValues(buffer) {
-    return randomFillSync(buffer)
-  }
-}
-```
 
 
 ### CLI

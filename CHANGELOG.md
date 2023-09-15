@@ -1,6 +1,14 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 5.0.1
+* Fixed Node.js 18 support.
+
+## 5.0
+* Moved Node.js version to Web Crypto API.
+* Removed async API since Web Crypto API has only sync version.
+* Removed Node.js 14 and 16 support.
+
 ## 4.0.2
 * Added [link](https://github.com/sponsors/ai) to Github Sponsors.
 
