@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 5.0.9
+* Fixed a way to break Nano ID by passing non-integer size (by @myndzi).
+
 ## 5.0.8
 * Reduced `customAlphabet` size (by @kirillgroshkov).
 
@@ -41,6 +44,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   We will support 3.x branch with CommonJS for users who can’t migrate to ESM.
 * Removed Node.js 10 and Node.js 12 support.
 * Reduced npm package size.
+
+## 3.3.8
+* Fixed a way to break Nano ID by passing non-integer size (by @myndzi).
 
 ## 3.3.7
 * Fixed `node16` TypeScript support (by Saadi Myftija).
