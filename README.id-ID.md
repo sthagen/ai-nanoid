@@ -47,6 +47,7 @@ Mendukung penjelajah (browser) modern, IE [dengan Babel](https://developer.epage
   - [PouchDB dan CouchDB](#pouchdb-dan-couchdb)
   - [Web Workers](#web-workers)
   - [CLI](#cli)
+  - [TypeScript](#typescript)
   - [Bahasa Pemrograman Lainnya](#bahasa-pemrograman-lainnya)
 - [Alat](#alat)
 
@@ -302,6 +303,29 @@ LZfXLFzPPR4NNrgjlWDxn
 
 Bila ingin mengganti alfabet atau ukuran ID, dapat menggunakan [`nanoid-cli`](https://github.com/twhitbeck/nanoid-cli).
 
+### TypeScript
+
+Nano ID memungkinkan untuk mengubah string yang dihasilkan menjadi string opak
+dalam TypeScript. Sebagai contoh:
+
+```ts
+declare const userIdBrand: unique symbol
+type UserId = string & { [userIdBrand]: true }
+
+// Gunakan parameter tipe secara eksplisit:
+mockUser(nanoid<UserId>())
+
+interface User {
+  id: UserId
+  name: string
+}
+
+const user: User = {
+  // Secara otomatis diubah menjadi UserId:
+  id: nanoid(),
+  name: 'Alice'
+}
+```
 
 ### Bahasa Pemrograman Lainnya
 

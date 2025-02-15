@@ -59,6 +59,7 @@ model.id = nanoid() //=> "V1StGXR8_Z5jdHi6B-myT"
   - [PouchDB и CouchDB](#pouchdb-и-couchdb)
   - [Веб-воркеры](#веб-воркеры)
   - [Терминал](#терминал)
+  - [TypeScript](#typescript)
   - [Другие языки программирования](#другие-языки-программирования)
 - [Инструменты](#инструменты)
 
@@ -394,6 +395,30 @@ L3til0JS4z
 ```sh
 $ npx nanoid --alphabet abc --size 15
 bccbcabaabaccab
+```
+
+### TypeScript
+
+Nano ID позволяет приводить сгенерированные строки к непрозрачным строкам в
+TypeScript. Например:
+
+```ts
+declare const userIdBrand: unique symbol
+type UserId = string & { [userIdBrand]: true }
+
+// Используйте явный параметр типа:
+mockUser(nanoid<UserId>())
+
+interface User {
+  id: UserId
+  name: string
+}
+
+const user: User = {
+  // Автоматически приводится к типу UserId:
+  id: nanoid(),
+  name: 'Alice'
+}
 ```
 
 ### Другие языки программирования

@@ -55,6 +55,7 @@ model.id = nanoid() //=> "V1StGXR8_Z5jdHi6B-myT"
   - [PouchDB and CouchDB](#pouchdb-and-couchdb)
   - [Web Workers](#web-workers)
   - [CLI](#cli)
+  - [TypeScript](#typescript)
   - [Other Programming Languages](#other-programming-languages)
 - [Tools](#tools)
 
@@ -416,6 +417,29 @@ $ npx nanoid --alphabet abc --size 15
 bccbcabaabaccab
 ```
 
+### TypeScript
+
+Nano ID allows casting generated strings into opaque strings in TypeScript.
+For example:
+
+```ts
+declare const userIdBrand: unique symbol
+type UserId = string & { [userIdBrand]: true }
+
+// Use explicit type parameter:
+mockUser(nanoid<UserId>())
+
+interface User {
+  id: UserId
+  name: string
+}
+
+const user: User = {
+  // Automatically casts to UserId:
+  id: nanoid(),
+  name: 'Alice'
+}
+```
 
 ### Other Programming Languages
 
