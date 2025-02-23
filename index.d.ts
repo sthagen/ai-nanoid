@@ -1,4 +1,16 @@
 /**
+ * A tiny, secure, URL-friendly, unique string ID generator for JavaScript
+ * with hardware random generator.
+ *
+ * ```js
+ * import { nanoid } from 'nanoid'
+ * model.id = nanoid() //=> "V1StGXR8_Z5jdHi6B-myT"
+ * ```
+ *
+ * @module
+ */
+
+/**
  * Generate secure URL-friendly unique ID.
  *
  * By default, the ID will have 21 symbols to have a collision probability
@@ -10,7 +22,7 @@
  * ```
  *
  * @param size Size of the ID. The default size is 21.
- * @typeparam Type The type of the generated ID.
+ * @typeparam Type The ID type to replace `string` with some opaque type.
  * @returns A random string.
  */
 export function nanoid<Type extends string>(size?: number): Type
@@ -23,7 +35,7 @@ export function nanoid<Type extends string>(size?: number): Type
  *
  * @param alphabet Alphabet used to generate the ID.
  * @param defaultSize Size of the ID. The default size is 21.
- * @typeparam Type The type of the generated ID.
+ * @typeparam Type The ID type to replace `string` with some opaque type.
  * @returns A random string generator.
  *
  * ```js
@@ -60,7 +72,7 @@ export function customAlphabet<Type extends string>(
  * @param alphabet Alphabet used to generate a random string.
  * @param size Size of the random string.
  * @param random A random bytes generator.
- * @typeparam Type The type of the generated ID.
+ * @typeparam Type The ID type to replace `string` with some opaque type.
  * @returns A random string generator.
  */
 export function customRandom<Type extends string>(

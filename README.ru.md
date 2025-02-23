@@ -47,6 +47,7 @@ model.id = nanoid() //=> "V1StGXR8_Z5jdHi6B-myT"
 - [Подключение](#подключение)
   - [ESM](#esm)
   - [CommonJS](#commonjs)
+  - [JSR](#jsr)
   - [CDN](#cdn)
 - [API](#api)
   - [Блокирующий](#блокирующий)
@@ -168,6 +169,26 @@ npm install nanoid
   ```bash
   npm install nanoid@3
   ```
+
+### JSR
+
+[JSR](https://jsr.io) это замена npm с открытым управлением
+и активной разработкой (в отличие от npm).
+
+```bash
+npx jsr add @sitnik/nanoid
+```
+
+Вы можете использовать пакет с JSR в Node.js, Deno, Bun.
+
+```js
+// Replace `nanoid` to `@sitnik/nanoid` in all imports
+import { nanoid } from '@sitnik/nanoid'
+```
+
+Для Deno установите через `deno add jsr:@sitnik/nanoid`
+или импортируйте `jsr:@sitnik/nanoid`.
+
 
 ### CDN
 
@@ -415,7 +436,6 @@ Nano ID был портирован на множество языков. Это
 - [ColdFusion/CFML](https://github.com/JamoCA/cfml-nanoid)
 - [Crystal](https://github.com/mamantoha/nanoid.cr)
 - [Dart и Flutter](https://github.com/pd4d10/nanoid-dart)
-- [Deno](https://github.com/ianfabs/nanoid)
 - [Elixir](https://github.com/railsmechanic/nanoid)
 - [Gleam](https://github.com/0xca551e/glanoid)
 - [Go](https://github.com/jaevor/go-nanoid)
