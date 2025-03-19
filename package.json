@@ -1,6 +1,6 @@
 {
   "name": "nanoid",
-  "version": "5.1.4",
+  "version": "5.1.5",
   "description": "A tiny (118 bytes), secure URL-friendly unique string ID generator",
   "keywords": [
     "uuid",
@@ -65,7 +65,7 @@
     "shortid": "^2.2.17",
     "size-limit": "^11.2.0",
     "terser": "^5.39.0",
-    "tinybench": "^3.1.1",
+    "tinybench": "^4.0.1",
     "uid": "^2.0.2",
     "uid-safe": "^2.1.5",
     "uuid": "^11.1.0",

@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 5.1.5
+* Fixed latest version on npm after 3.x release.
+
 ## 5.1.4
 * Fixed latest version on npm after 3.x release.
 
@@ -60,6 +63,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   We will support 3.x branch with CommonJS for users who can’t migrate to ESM.
 * Removed Node.js 10 and Node.js 12 support.
 * Reduced npm package size.
+
+## 3.3.11
+* Fixed React Native support.
 
 ## 3.3.10
 * Fixed React Native support (by @steida).
