@@ -1,4 +1,4 @@
-import { equal, match, notEqual, ok, throws } from 'node:assert'
+import { equal, match, notEqual, ok } from 'node:assert'
 import { after, before, describe, test } from 'node:test'
 
 import * as browser from '../index.browser.js'
@@ -28,6 +28,10 @@ for (let type of ['node', 'browser']) {
         Object.defineProperty(global, 'crypto', { value: undefined })
       })
     }
+
+    test('is ready for 0 size', () => {
+      equal(nanoid(0), '')
+    })
 
     test(`generates URL-friendly IDs`, () => {
       for (let i = 0; i < 100; i++) {
@@ -212,10 +216,8 @@ for (let type of ['node', 'browser']) {
       })
 
       test(`${type} / customAlphabet / does not fall in infinite loop`, () => {
-        let generateId = customAlphabet('abc', 0)
-        throws(() => {
-          generateId()
-        }, /ID size is 0/)
+        equal(customAlphabet('abc')(0), '')
+        equal(customAlphabet('abc', 0)(0), '')
       })
     }
   })
