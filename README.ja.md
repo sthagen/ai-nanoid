@@ -3,7 +3,7 @@
 <img src="https://ai.github.io/nanoid/logo.svg" align="right"
      alt="Nano ID logo by Anton Lovchikov" width="180" height="94">
 
-[English](./README.md) | **日本語** | [Русский](./README.ru.md) | [简体中文](./README.zh-CN.md) | [Bahasa Indonesia](./README.id-ID.md) | [한국어](./README.ko.md)
+[English](./README.md) | **日本語** | [Русский](./README.ru.md) | [简体中文](./README.zh-CN.md) | [Bahasa Indonesia](./README.id-ID.md) | [한국어](./README.ko.md) | [العربية](./README.ar.md)
 
 JavaScriptのための小さく、安全で、URL友好的なユニークな文字列ID生成器。
 
@@ -73,7 +73,7 @@ Nano IDとUUID v4の主な違いは2つあります：
 1. Nano IDはより大きなアルファベットを使用するため、同様のランダムビット数が
    36文字ではなく21文字に詰め込まれています。
 2. Nano IDのコードはuuid/v4パッケージより**4倍小さい**です：
-   423バイトではなく130バイトです。
+   423バイトではなく118バイトです。
 
 
 ## ベンチマーク
@@ -262,7 +262,7 @@ const nanoid = customAlphabet('1234567890abcdef', 10)
 model.id = nanoid(5) //=> "f01a2"
 ```
 
-[ID衝突確率]: https://alex7kom.github.io/nano-nanoid-cc/
+[ID衝突確率]: https://zelark.github.io/nano-id-cc/
 [nanoid-dictionary]:      https://github.com/CyberAP/nanoid-dictionary
 
 
@@ -339,7 +339,7 @@ const todoItems = todos.map((text, index) =>
 ラベルと入力フィールドのように要素を関連付けるためだけにランダムなIDが必要な場合は、[`useId`]が推奨されます。
 このフックはReact 18で追加されました。
 
-[`useId`]: https://reactjs.org/docs/hooks-reference.html#useid
+[`useId`]: https://react.dev/reference/react/useId
 
 
 ### React Native

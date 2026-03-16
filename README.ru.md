@@ -3,7 +3,7 @@
 <img src="https://ai.github.io/nanoid/logo.svg" align="right"
      alt="Логотип Nano ID от Антона Ловчикова" width="180" height="94">
 
-[English](./README.md) | [日本語](./README.ja.md) | **Русский** | [简体中文](./README.zh-CN.md) | [Bahasa Indonesia](./README.id-ID.md) | [한국어](./README.ko.md)
+[English](./README.md) | [日本語](./README.ja.md) | **Русский** | [简体中文](./README.zh-CN.md) | [Bahasa Indonesia](./README.id-ID.md) | [한국어](./README.ko.md) | [العربية](./README.ar.md)
 
 Генератор уникальных ID для JavaScript — лёгкий, безопасный,
 ID можно применять в URL.
@@ -79,7 +79,7 @@ Nano ID похож на UUID v4 (случайный).
 1. Nano ID использует более широкий алфавит, и сравнимое количество
    битов случайности будут упакованы в более короткую строку
    (21 символ, против 36 у UUID).
-2. Код Nano ID **в 4 раз меньше**, чем у `uuid/v4` — 130 байт против 423.
+2. Код Nano ID **в 4 раз меньше**, чем у `uuid/v4` — 118 байт против 423.
 
 
 ## Сравнение производительности
@@ -281,7 +281,7 @@ const nanoid = customAlphabet('1234567890abcdef', 10)
 model.id = nanoid(5) //=> "f01a2"
 ```
 
-[на нашем калькуляторе]: https://alex7kom.github.io/nano-nanoid-cc/
+[на нашем калькуляторе]: https://zelark.github.io/nano-id-cc/
 [`nanoid-dictionary`]: https://github.com/CyberAP/nanoid-dictionary
 
 
@@ -340,7 +340,7 @@ function Todos({ todos }) {
 Для связи `<input>` и `<label>` лучше использовать [`useId`],
 который был добавлен в React 18.
 
-[`useId`]: https://reactjs.org/docs/hooks-reference.html#useid
+[`useId`]: https://react.dev/reference/react/useId
 
 
 ### React Native

@@ -3,7 +3,7 @@
 <img src="https://ai.github.io/nanoid/logo.svg" align="right"
      alt="Logo Nano ID oleh Anton Lovchikov" width="180" height="94">
 
-[English](./README.md) | [日本語](./README.ja.md) | [Русский](./README.ru.md) | [简体中文](./README.zh-CN.md) | **Bahasa Indonesia** | [한국어](./README.ko.md)
+[English](./README.md) | [日本語](./README.ja.md) | [Русский](./README.ru.md) | [简体中文](./README.zh-CN.md) | **Bahasa Indonesia** | [한국어](./README.ko.md) | [العربية](./README.ar.md)
 
 Sebuah generator ID yang unik dalam bentuk string yang ringan, aman, serta _URL-friendly_ untuk JavaScript.
 
@@ -60,7 +60,7 @@ Nano ID dapat dibandingkan dengan UUID v4 (yang berbasis acak / _randomly genera
 Ada dua buah perbedaan antara Nano ID dan UUID v4:
 
 1. Nano ID menggunakan alfabet yang lebih lebar, karenanya jumlah bita acak dapat 'dikemas' dalam 21 simbol, bukan 36 simbol.
-2. Kode sumber Nano ID **empat kali lebih kecil** ketimbang `uuid/v4`: 130 bytes dibanding 423 bytes.
+2. Kode sumber Nano ID **empat kali lebih kecil** ketimbang `uuid/v4`: 118 bytes dibanding 423 bytes.
 
 
 ## Benchmark
@@ -173,7 +173,7 @@ const nanoid = customAlphabet('1234567890abcdef', 10)
 model.id = nanoid() //=> "4f90d13a42"
 ```
 
-Ketika menggunakan fungsi ini, jangan lupa untuk memeriksa keamanan alfabet dan ukuran ID dalam [ID collision probability calculator](https://alex7kom.github.io/nano-nanoid-cc/). Untuk lebih banyak alfabet, dapat menggunakan [`nanoid-dictionary`](https://github.com/CyberAP/nanoid-dictionary).
+Ketika menggunakan fungsi ini, jangan lupa untuk memeriksa keamanan alfabet dan ukuran ID dalam [ID collision probability calculator](https://zelark.github.io/nano-id-cc/). Untuk lebih banyak alfabet, dapat menggunakan [`nanoid-dictionary`](https://github.com/CyberAP/nanoid-dictionary).
 
 Alfabet harus terbentuk dari 256 simbol atau lebih kecil. Selain itu, keamanan algoritma generasi yang berada di dalam library ini tidak dijamin aman.
 

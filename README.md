@@ -3,7 +3,7 @@
 <img src="https://ai.github.io/nanoid/logo.svg" align="right"
      alt="Nano ID logo by Anton Lovchikov" width="180" height="94">
 
-**English** | [日本語](./README.ja.md) | [Русский](./README.ru.md) | [简体中文](./README.zh-CN.md) | [Bahasa Indonesia](./README.id-ID.md) | [한국어](./README.ko.md)
+**English** | [日本語](./README.ja.md) | [Русский](./README.ru.md) | [简体中文](./README.zh-CN.md) | [Bahasa Indonesia](./README.id-ID.md) | [한국어](./README.ko.md) | [العربية](./README.ar.md)
 
 A tiny, secure, URL-friendly, unique string ID generator for JavaScript.
 
@@ -74,7 +74,7 @@ There are two main differences between Nano ID and UUID v4:
 1. Nano ID uses a bigger alphabet, so a similar number of random bits
    are packed in just 21 symbols instead of 36.
 2. Nano ID code is **4 times smaller** than `uuid/v4` package:
-   130 bytes instead of 423.
+   118 bytes instead of 423.
 
 
 ## Benchmark
@@ -274,7 +274,6 @@ const nanoid = customAlphabet('1234567890abcdef', 10)
 model.id = nanoid(5) //=> "f01a2"
 ```
 
-[ID collision probability]: https://alex7kom.github.io/nano-nanoid-cc/
 [`nanoid-dictionary`]:      https://github.com/CyberAP/nanoid-dictionary
 
 
@@ -303,7 +302,7 @@ If you want to use the same URL-friendly symbols with `customRandom`,
 you can get the default alphabet using the `urlAlphabet`.
 
 ```js
-const { customRandom, urlAlphabet } = require('nanoid')
+import { customRandom, urlAlphabet } from 'nanoid'
 const nanoid = customRandom(urlAlphabet, 10, random)
 ```
 
@@ -359,7 +358,7 @@ In case you just need random IDs to link elements like labels
 and input fields together, [`useId`] is recommended.
 That hook was added in React 18.
 
-[`useId`]: https://reactjs.org/docs/hooks-reference.html#useid
+[`useId`]: https://react.dev/reference/react/useId
 
 
 ### React Native

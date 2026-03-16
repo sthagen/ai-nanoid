@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+import { readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import { customAlphabet, nanoid } from '../index.js'
 
 function print(msg) {
@@ -11,6 +15,13 @@ function error(msg) {
   process.exit(1)
 }
 
+if (process.argv.includes('--version') || process.argv.includes('-v')) {
+  let root = dirname(fileURLToPath(import.meta.url))
+  let pkg = JSON.parse(readFileSync(join(root, '..', 'package.json'), 'utf8'))
+  print(pkg.version)
+  process.exit()
+}
+
 if (process.argv.includes('--help') || process.argv.includes('-h')) {
   print(`Usage
   $ nanoid [options]
@@ -18,6 +29,7 @@ if (process.argv.includes('--help') || process.argv.includes('-h')) {
 Options
   -s, --size       Generated ID size
   -a, --alphabet   Alphabet to use
+  -v, --version    Show version number
   -h, --help       Show this help
 
 Examples

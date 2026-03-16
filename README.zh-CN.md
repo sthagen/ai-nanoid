@@ -3,7 +3,7 @@
 <img src="https://ai.github.io/nanoid/logo.svg" align="right"
      alt="Nano ID logo by Anton Lovchikov" width="180" height="94">
 
-[English](./README.md) | [日本語](./README.ja.md) | [Русский](./README.ru.md) | **简体中文** | [Bahasa Indonesia](./README.id-ID.md) | [한국어](./README.ko.md)
+[English](./README.md) | [日本語](./README.ja.md) | [Русский](./README.ru.md) | **简体中文** | [Bahasa Indonesia](./README.id-ID.md) | [한국어](./README.ko.md) | [العربية](./README.ar.md)
 
 一个小巧、安全、URL友好、唯一的 JavaScript 字符串ID生成器。
 
@@ -66,7 +66,7 @@ Nano ID 和 UUID v4之间有两个主要区别:
 
 1. Nano ID 使用更大的字母表，所以类似数量的随机位
    被包装在21个符号中，而不是36个。
-2. Nano ID 代码比 `uuid/v4` 包少 **4倍**: 130字节而不是423字节.
+2. Nano ID 代码比 `uuid/v4` 包少 **4倍**: 118字节而不是423字节.
 
 
 ## 基准值
@@ -172,7 +172,7 @@ nanoid(10) //=> "IRFa-VaY2b"
 您也可以使用 [自定义字母表](#自定义字母或大小)
 或者是 [自定义生成器](#自定义随机字节生成器).
 
-[ID 碰撞概率]: https://alex7kom.github.io/nano-nanoid-cc/
+[ID 碰撞概率]: https://zelark.github.io/nano-id-cc/
 
 
 ### 不安全
@@ -215,7 +215,7 @@ const nanoid = customAlphabet('1234567890abcdef', 10)
 model.id = nanoid(5) //=> "f01a2"
 ```
 
-[ID collision probability]: https://alex7kom.github.io/nano-nanoid-cc/
+[ID collision probability]: https://zelark.github.io/nano-id-cc/
 [`nanoid-dictionary`]:      https://github.com/CyberAP/nanoid-dictionary
 
 
@@ -294,7 +294,7 @@ const todoItems = todos.map((text, index) =>
 
 如果您只需要随机 ID 来将元素（如标签和输入字段）链接在一起，建议使用 [`useId`]。该钩子在 React 18 中添加。
 
-[`useId`]: https://reactjs.org/docs/hooks-reference.html#useid
+[`useId`]: https://react.dev/reference/react/useId
 
 
 ### React Native
