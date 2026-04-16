@@ -2,6 +2,14 @@
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 5.1.9
+
+- Fixed npm package size regression.
+
+## 5.1.8
+
+- Made `cusatomAlphabet` 75% faster (by @saripovdenis).
+
 ## 5.1.7
 
 - Added `--version` to CLI (by @mahmoodhamdi).

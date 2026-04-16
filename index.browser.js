@@ -10,28 +10,45 @@ export { urlAlphabet } from './url-alphabet/index.js'
 export let random = bytes => crypto.getRandomValues(new Uint8Array(bytes))
 
 export let customRandom = (alphabet, defaultSize, getRandom) => {
-  // First, a bitmask is necessary to generate the ID. The bitmask makes bytes
-  // values closer to the alphabet size. The bitmask calculates the closest
-  // `2^31 - 1` number, which exceeds the alphabet size.
-  // For example, the bitmask for the alphabet size 30 is 31 (00011111).
-  // `Math.clz32` is not used, because it is not available in browsers.
-  let mask = (2 << Math.log2(alphabet.length - 1)) - 1
-  // Though, the bitmask solution is not perfect since the bytes exceeding
-  // the alphabet size are refused. Therefore, to reliably generate the ID,
-  // the random bytes redundancy has to be satisfied.
+  // Random bytes are 0-255. `random % alphabet.length` can waste
+  // that entropy by making some symbols more likely.
+  //
+  // `safeByteCutoff` will be divided by `alphabet.length` without remainder
+  // fixing issue of broken distribution.
+  //
+  // Example: with 17 symbols, `safeByteCutoff` is 255.
+  // Bytes 0-254 preserve entropy evenly: each symbol gets 15 source bytes.
+  // Byte 255 would map to `0` again, making one symbol slightly more likely.
+  // So we reject 255.
+  let safeByteCutoff = 256 - (256 % alphabet.length)
 
-  // Note: every hardware random generator call is performance expensive,
-  // because the system call for entropy collection takes a lot of time.
-  // So, to avoid additional system calls, extra bytes are requested in advance.
+  // Power-of-two alphabets can use `& mask` instead of modulo.
+  if (safeByteCutoff === 256) {
+    let mask = alphabet.length - 1
 
-  // Next, a step determines how many random bytes to generate.
-  // The number of random bytes gets decided upon the ID size, mask,
-  // alphabet size, and magic number 1.6 (using 1.6 peaks at performance
-  // according to benchmarks).
+    return (size = defaultSize) => {
+      if (!size) return ''
+      let id = ''
+      while (true) {
+        let bytes = getRandom(size)
+        // A compact alternative for `for (var i = 0; i < step; i++)`.
+        let j = size
+        while (j--) {
+          // Here, `& mask` is equivalent to `% alphabet.length`, but faster
+          id += alphabet[bytes[j] & mask]
+          if (id.length >= size) return id
+        }
+      }
+    }
+  }
 
-  // `-~f => Math.ceil(f)` if f is a float
-  // `-~i => i + 1` if i is an integer
-  let step = -~((1.6 * mask * defaultSize) / alphabet.length)
+  // Secure random calls are expensive because system calls
+  // for entropy collection take time. To avoid extra calls,
+  // extra bytes are requested in advance to cover rejections.
+  //
+  // `step` determines how many random bytes to request.
+  // `1.6` is a magic number chosen from benchmarks.
+  let step = Math.ceil((1.6 * 256 * defaultSize) / safeByteCutoff)
 
   return (size = defaultSize) => {
     if (!size) return ''
@@ -41,11 +58,12 @@ export let customRandom = (alphabet, defaultSize, getRandom) => {
       // A compact alternative for `for (var i = 0; i < step; i++)`.
       let j = step
       while (j--) {
-        let next = alphabet[bytes[j] & mask]
-        // Adding `continue` refuses a random byte that exceeds the alphabet size.
-        if (!next) continue
-        id += next
-        if (id.length >= size) return id
+        // Reject bytes >= `safeByteCutoff` to avoid modulo bias
+        // and give each symbol an equal chance.
+        if (bytes[j] < safeByteCutoff) {
+          id += alphabet[bytes[j] % alphabet.length]
+          if (id.length >= size) return id
+        }
       }
     }
   }
@@ -58,9 +76,8 @@ export let nanoid = (size = 21) => {
   let id = ''
   let bytes = crypto.getRandomValues(new Uint8Array((size |= 0)))
   while (size--) {
-    // Using the bitwise AND operator to "cap" the value of
-    // the random byte from 255 to 63, in that way we can make sure
-    // that the value will be a valid index for the "chars" string.
+    // The following mask reduces the random byte in the 0-255 value
+    // range to the 0-63 value range.
     id += scopedUrlAlphabet[bytes[size] & 63]
   }
   return id

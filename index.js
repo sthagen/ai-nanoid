@@ -25,30 +25,52 @@ function fillPool(bytes) {
 }
 
 export function random(bytes) {
-  // `|=` convert `bytes` to number to prevent `valueOf` abusing and pool pollution
+  // `|=` convert `bytes` to number to prevent `valueOf` abusing
+  // and pool pollution
   fillPool((bytes |= 0))
   return pool.subarray(poolOffset - bytes, poolOffset)
 }
 
 export function customRandom(alphabet, defaultSize, getRandom) {
-  // First, a bitmask is necessary to generate the ID. The bitmask makes bytes
-  // values closer to the alphabet size. The bitmask calculates the closest
-  // `2^31 - 1` number, which exceeds the alphabet size.
-  // For example, the bitmask for the alphabet size 30 is 31 (00011111).
-  let mask = (2 << (31 - Math.clz32((alphabet.length - 1) | 1))) - 1
-  // Though, the bitmask solution is not perfect since the bytes exceeding
-  // the alphabet size are refused. Therefore, to reliably generate the ID,
-  // the random bytes redundancy has to be satisfied.
+  // Random bytes are 0-255. `random % alphabet.length` can waste
+  // that entropy by making some symbols more likely.
+  //
+  // `safeByteCutoff` will be divided by `alphabet.length` without remainder
+  // fixing issue of broken distribution.
+  //
+  // Example: with 17 symbols, `safeByteCutoff` is 255.
+  // Bytes 0-254 preserve entropy evenly: each symbol gets 15 source bytes.
+  // Byte 255 would map to `0` again, making one symbol slightly more likely.
+  // So we reject 255.
+  let safeByteCutoff = 256 - (256 % alphabet.length)
 
-  // Note: every hardware random generator call is performance expensive,
-  // because the system call for entropy collection takes a lot of time.
-  // So, to avoid additional system calls, extra bytes are requested in advance.
+  // Power-of-two alphabets can use `& mask` instead of modulo.
+  if (safeByteCutoff === 256) {
+    let mask = alphabet.length - 1
 
-  // Next, a step determines how many random bytes to generate.
-  // The number of random bytes gets decided upon the ID size, mask,
-  // alphabet size, and magic number 1.6 (using 1.6 peaks at performance
-  // according to benchmarks).
-  let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)
+    return (size = defaultSize) => {
+      if (!size) return ''
+      let id = ''
+      while (true) {
+        let bytes = getRandom(size)
+        // A compact alternative for `for (let i = 0; i < step; i++)`.
+        let i = size
+        while (i--) {
+          // Here, `& mask` is equivalent to `% alphabet.length`, but faster
+          id += alphabet[bytes[i] & mask]
+          if (id.length >= size) return id
+        }
+      }
+    }
+  }
+
+  // Secure random calls are expensive because system calls
+  // for entropy collection take time. To avoid extra calls,
+  // extra bytes are requested in advance to cover rejections.
+  //
+  // `step` determines how many random bytes to request.
+  // `1.6` is a magic number chosen from benchmarks.
+  let step = Math.ceil((1.6 * 256 * defaultSize) / safeByteCutoff)
 
   return (size = defaultSize) => {
     if (!size) return ''
@@ -58,11 +80,12 @@ export function customRandom(alphabet, defaultSize, getRandom) {
       // A compact alternative for `for (let i = 0; i < step; i++)`.
       let i = step
       while (i--) {
-        let next = alphabet[bytes[i] & mask]
-        // Adding `continue` refuses a random byte that exceeds the alphabet size.
-        if (!next) continue
-        id += next
-        if (id.length >= size) return id
+        // Reject bytes >= `safeByteCutoff` to avoid modulo bias
+        // and give each symbol an equal chance.
+        if (bytes[i] < safeByteCutoff) {
+          id += alphabet[bytes[i] % alphabet.length]
+          if (id.length >= size) return id
+        }
       }
     }
   }
@@ -73,16 +96,15 @@ export function customAlphabet(alphabet, size = 21) {
 }
 
 export function nanoid(size = 21) {
-  // `|=` convert `size` to number to prevent `valueOf` abusing and pool pollution
+  // `|=` convert `size` to number to prevent `valueOf` abusing
+  // and pool pollution
   fillPool((size |= 0))
+
   let id = ''
   // We are reading directly from the random pool to avoid creating new array
   for (let i = poolOffset - size; i < poolOffset; i++) {
-    // It is incorrect to use bytes exceeding the alphabet size.
     // The following mask reduces the random byte in the 0-255 value
-    // range to the 0-63 value range. Therefore, adding hacks, such
-    // as empty string fallback or magic numbers, is unnecessary because
-    // the bitmask trims bytes down to the alphabet size.
+    // range to the 0-63 value range.
     id += scopedUrlAlphabet[pool[i] & 63]
   }
   return id
