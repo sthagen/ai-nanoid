@@ -2,6 +2,18 @@
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 5.1.14
+
+- Fixed npm package size regression.
+
+## 5.1.13
+
+- Fixed npm package size regression.
+
+## 5.1.12
+
+- Moved to npm Provenance and Staged Publishing.
+
 ## 5.1.11
 
 - Fixed breaking Nano ID by requesting big ID.
@@ -109,6 +121,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Removed CommonJS support. Nano ID 4 will work only with ESM applications.
   We will support 3.x branch with CommonJS for users who can’t migrate to ESM.
 - Removed Node.js 10 and Node.js 12 support.
+- Reduced npm package size.
+
+## 3.3.13
+
 - Reduced npm package size.
 
 ## 3.3.12
