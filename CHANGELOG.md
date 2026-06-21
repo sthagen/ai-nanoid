@@ -2,6 +2,10 @@
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 5.1.15
+
+- Fixed random pool corruption on big ID sizes.
+
 ## 5.1.14
 
 - Fixed npm package size regression.
@@ -122,6 +126,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   We will support 3.x branch with CommonJS for users who can’t migrate to ESM.
 - Removed Node.js 10 and Node.js 12 support.
 - Reduced npm package size.
+
+## 3.3.14
+
+- Fixed random pool corruption on big ID sizes.
 
 ## 3.3.13
 
