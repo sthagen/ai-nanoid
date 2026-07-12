@@ -2,7 +2,6 @@
 
 import { v4 as lukeed4 } from '@lukeed/uuid'
 import { v4 as napiV4 } from '@napi-rs/uuid'
-import crypto from 'node:crypto'
 import { styleText } from 'node:util'
 import { nopeid } from 'nope-id'
 import rndm from 'rndm'
@@ -14,16 +13,22 @@ import { uid as uidSecure } from 'uid/secure'
 import { v4 as uuid4 } from 'uuid'
 
 import { nanoid as browser } from '../index.browser.js'
-import { customAlphabet, nanoid } from '../index.js'
+import { nanoid, customAlphabet } from '../index.js'
 import { nanoid as nonSecure } from '../non-secure/index.js'
 
 let bench = new Bench()
 
-let nanoid2 = customAlphabet('1234567890abcdef-', 10)
+let nanoid2 = customAlphabet('1234567890abcdef-', 21)
 
 bench
   .add('nope-id', () => {
     nopeid()
+  })
+  .add('nanoid', () => {
+    nanoid()
+  })
+  .add('customAlphabet', () => {
+    nanoid2()
   })
   .add('crypto.randomUUID', () => {
     crypto.randomUUID()
@@ -39,12 +44,6 @@ bench
   })
   .add('@lukeed/uuid', () => {
     lukeed4()
-  })
-  .add('nanoid', () => {
-    nanoid()
-  })
-  .add('customAlphabet', () => {
-    nanoid2()
   })
   .add('nanoid for browser', () => {
     browser()
