@@ -30,12 +30,10 @@ model.id = nanoid() //=> "V1StGXR8_Z5jdHi6B-myT"
 
 ---
 
-<img src="https://cdn.evilmartians.com/badges/logo-no-label.svg" alt="" width="22" height="16" /> Made at <b><a href="https://evilmartians.com/devtools?utm_source=nanoid&utm_campaign=devtools-button&utm_medium=github">Evil Martians</a></b>, product consulting for <b>developer tools</b>.
+<img src="https://cdn.evilmartians.com/badges/logo-no-label.svg" alt="" width="22" height="16" />  تم تطوير Nano ID بواسطة <b><a href="https://evilmartians.com/">Evil Martians</a></b>، وهي شركة استشارات أمريكية في التصميم والهندسة للشركات الناشئة في مجالات <b>أدوات المطورين والذكاء الاصطناعي والأمن السيبراني</b>.
 
 ---
 
-[online tool]: https://gitpod.io/#https://github.com/ai/nanoid/
-[with Babel]: https://developer.epages.com/blog/coding/how-to-transpile-node-modules-with-babel-and-webpack-in-a-monorepo/
 [Size Limit]: https://github.com/ai/size-limit
 
 <div dir="rtl">
@@ -47,15 +45,12 @@ model.id = nanoid() //=> "V1StGXR8_Z5jdHi6B-myT"
 - [اختبار الأداء](#اختبار-الأداء)
 - [الأمان](#الأمان)
 - [التثبيت](#التثبيت)
-  - [ESM](#esm)
-  - [CommonJS](#commonjs)
   - [JSR](#jsr)
   - [CDN](#cdn)
 - [واجهة البرمجة (API)](#واجهة-البرمجة-api)
-  - [متزامن (Blocking)](#متزامن-blocking)
-  - [غير آمن (Non-Secure)](#غير-آمن-non-secure)
   - [أبجدية أو حجم مخصّص](#أبجدية-أو-حجم-مخصّص)
   - [مُولِّد بايتات عشوائية مخصّص](#مُولِّد-بايتات-عشوائية-مخصّص)
+  - [غير آمن (Non-Secure)](#غير-آمن-non-secure)
 - [الاستخدام](#الاستخدام)
   - [React](#react)
   - [React Native](#react-native)
@@ -106,8 +101,6 @@ rndm                     2,445,462 ops/sec
 
 <div dir="rtl">
 
-بيئة الاختبار: Framework 13 7840U، فيدورا 39، Node.js 21.6.
-
 ## الأمان
 
 _اقرأ مقالاً جيداً عن نظرية مُولِّدات الأرقام العشوائية:
@@ -136,46 +129,10 @@ _اقرأ مقالاً جيداً عن نظرية مُولِّدات الأرق�
 
 ## التثبيت
 
-### ESM
-
-يعمل Nano ID 5 مع مشاريع ESM (باستخدام `import`) في الاختبارات أو سكربتات Node.js.
-
 </div>
 
 ```bash
 npm install nanoid
-```
-
-<div dir="rtl">
-
-### CommonJS
-
-يمكن استخدام Nano ID مع CommonJS بإحدى الطرق التالية:
-
-- يمكنك استخدام `require()` لاستيراد Nano ID. تحتاج إلى استخدام أحدث إصدار من
-  Node.js 22.12 (يعمل مباشرة) أو Node.js 20
-  (مع علامة `--experimental-require-module`).
-
-- لـ Node.js 18 يمكنك استيراد Nano ID ديناميكيًا كالتالي:
-
-</div>
-
-```js
-let nanoid
-module.exports.createID = async () => {
-  if (!nanoid) ({ nanoid } = await import('nanoid'))
-  return nanoid() // => "V1StGXR8_Z5jdHi6B-myT"
-}
-```
-
-<div dir="rtl">
-
-- يمكنك استخدام Nano ID 3.x (ما زلنا ندعمه):
-
-</div>
-
-```bash
-npm install nanoid@3
 ```
 
 <div dir="rtl">
@@ -222,17 +179,8 @@ import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid/nanoid.js'
 
 ## واجهة البرمجة (API)
 
-يمتلك Nano ID واجهتي برمجة: عادية وغير آمنة.
-
 بشكل افتراضي، يستخدم Nano ID رموزًا متوافقة مع الروابط (`A-Za-z0-9_-`) ويُنتج مُعرِّفًا
 مكوّنًا من 21 حرفًا (ليكون احتمال التكرار مماثلاً لـ UUID v4).
-
-### متزامن (Blocking)
-
-الطريقة الأسهل والأكثر أمانًا لاستخدام Nano ID.
-
-في حالات نادرة قد يحجب المعالج عن العمليات الأخرى أثناء جمع الضوضاء
-لمُولِّد الأرقام العشوائية على مستوى العتاد.
 
 </div>
 
@@ -261,21 +209,6 @@ nanoid(10) //=> "IRFa-VaY2b"
 أو [مُولِّد أرقام عشوائية مخصّص](#مُولِّد-بايتات-عشوائية-مخصّص).
 
 [احتمالية تكرار المُعرِّف]: https://zelark.github.io/nano-id-cc/
-
-### غير آمن (Non-Secure)
-
-بشكل افتراضي، يستخدم Nano ID توليد بايتات عشوائية على مستوى العتاد
-من أجل الأمان وتقليل احتمالية التكرار. إذا لم يكن الأمان مهمًا بالنسبة لك،
-يمكنك استخدامه في بيئات لا تتوفر فيها مُولِّدات أرقام عشوائية على مستوى العتاد.
-
-</div>
-
-```js
-import { nanoid } from 'nanoid/non-secure'
-const id = nanoid() //=> "Uakgb_J5m9g-0JDMbcJqLJ"
-```
-
-<div dir="rtl">
 
 ### أبجدية أو حجم مخصّص
 
@@ -360,6 +293,24 @@ const nanoid = customRandom(urlAlphabet, 10, random)
 
 ملاحظة: بين إصدارات Nano ID قد يتغيّر تسلسل استدعاء مُولِّد الأرقام العشوائية.
 إذا كنت تستخدم مُولِّدات مبنية على بذرة، فإننا لا نضمن نفس النتيجة.
+
+### غير آمن (Non-Secure)
+
+بشكل افتراضي، يستخدم Nano ID توليد بايتات عشوائية على مستوى العتاد
+من أجل الأمان وتقليل احتمالية التكرار. إذا لم يكن الأمان مهمًا بالنسبة لك،
+يمكنك استخدامه في بيئات لا تتوفر فيها مُولِّدات أرقام عشوائية على مستوى العتاد.
+
+</div>
+
+```js
+import { nanoid } from 'nanoid/non-secure'
+const id = nanoid() //=> "Uakgb_J5m9g-0JDMbcJqLJ"
+```
+
+<div dir="rtl">
+
+لاحظ أن النسخة غير الآمنة _أبطأ_ من النسخة الآمنة.
+استخدمها فقط إذا اضطُررت إلى ذلك.
 
 ## الاستخدام
 

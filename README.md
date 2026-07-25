@@ -26,12 +26,10 @@ model.id = nanoid() //=> "V1StGXR8_Z5jdHi6B-myT"
 
 ---
 
-<img src="https://cdn.evilmartians.com/badges/logo-no-label.svg" alt="" width="22" height="16" />  Made at <b><a href="https://evilmartians.com/devtools?utm_source=nanoid&utm_campaign=devtools-button&utm_medium=github">Evil Martians</a></b>, product consulting for <b>developer tools</b>.
+<img src="https://cdn.evilmartians.com/badges/logo-no-label.svg" alt="" width="22" height="16" />  Nano ID is built by <b><a href="https://evilmartians.com/">Evil Martians</a></b>, an American design and engineering consultancy for <b>developer tools, AI, and cybersecurity startups</b>.
 
 ---
 
-[online tool]: https://gitpod.io/#https://github.com/ai/nanoid/
-[with Babel]: https://developer.epages.com/blog/coding/how-to-transpile-node-modules-with-babel-and-webpack-in-a-monorepo/
 [Size Limit]: https://github.com/ai/size-limit
 
 ## Table of Contents
@@ -41,15 +39,12 @@ model.id = nanoid() //=> "V1StGXR8_Z5jdHi6B-myT"
 - [Benchmark](#benchmark)
 - [Security](#security)
 - [Install](#install)
-  - [ESM](#esm)
-  - [CommonJS](#commonjs)
   - [JSR](#jsr)
   - [CDN](#cdn)
 - [API](#api)
-  - [Blocking](#blocking)
-  - [Non-Secure](#non-secure)
   - [Custom Alphabet or Size](#custom-alphabet-or-size)
   - [Custom Random Bytes Generator](#custom-random-bytes-generator)
+  - [Non-Secure](#non-secure)
 - [Usage](#usage)
   - [React](#react)
   - [React Native](#react-native)
@@ -96,8 +91,6 @@ nanoid/non-secure        2,397,594 ops/sec
 rndm                     2,445,462 ops/sec
 ```
 
-Test configuration: Framework 13 7840U, Fedora 39, Node.js 21.6.
-
 ## Security
 
 _See a good article about random generators theory:
@@ -127,37 +120,9 @@ _See a good article about random generators theory:
 
 ## Install
 
-### ESM
-
-Nano ID 5 works with ESM projects (with `import`) in tests or Node.js scripts.
-
 ```bash
 npm install nanoid
 ```
-
-### CommonJS
-
-Nano ID can be used with CommonJS in one of the following ways:
-
-- You can use `require()` to import Nano ID. You need to use latest Node.js
-  22.12 (works out-of-the-box) or Node.js 20
-  (with `--experimental-require-module`).
-
-- For Node.js 18 you can dynamically import Nano ID as follows:
-
-  ```js
-  let nanoid
-  module.exports.createID = async () => {
-    if (!nanoid) ({ nanoid } = await import('nanoid'))
-    return nanoid() // => "V1StGXR8_Z5jdHi6B-myT"
-  }
-  ```
-
-- You can use Nano ID 3.x (we still support it):
-
-  ```bash
-  npm install nanoid@3
-  ```
 
 ### JSR
 
@@ -189,17 +154,8 @@ import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid/nanoid.js'
 
 ## API
 
-Nano ID has 2 APIs: normal and non-secure.
-
 By default, Nano ID uses URL-friendly symbols (`A-Za-z0-9_-`) and returns an ID
 with 21 characters (to have a collision probability similar to UUID v4).
-
-### Blocking
-
-The safe and easiest way to use Nano ID.
-
-In rare cases could block CPU from other work while noise collection
-for hardware random generator.
 
 ```js
 import { nanoid } from 'nanoid'
@@ -220,17 +176,6 @@ You can also use a [custom alphabet](#custom-alphabet-or-size)
 or a [random generator](#custom-random-bytes-generator).
 
 [ID collision probability]: https://zelark.github.io/nano-id-cc/
-
-### Non-Secure
-
-By default, Nano ID uses hardware random bytes generation for security
-and low collision probability. If you are not so concerned with security,
-you can use it for environments without hardware random generators.
-
-```js
-import { nanoid } from 'nanoid/non-secure'
-const id = nanoid() //=> "Uakgb_J5m9g-0JDMbcJqLJ"
-```
 
 ### Custom Alphabet or Size
 
@@ -299,6 +244,20 @@ const nanoid = customRandom(urlAlphabet, 10, random)
 Note, that between Nano ID versions we may change random generator
 call sequence. If you are using seed-based generators, we do not guarantee
 the same result.
+
+### Non-Secure
+
+Nano ID uses hardware random bytes generation for security and low collision
+probability. If you are not so concerned with security, you can use it
+for environments without hardware random generators.
+
+```js
+import { nanoid } from 'nanoid/non-secure'
+const id = nanoid() //=> "Uakgb_J5m9g-0JDMbcJqLJ"
+```
+
+Note, that non-secure version is _slower_ than secure.
+Use it only if you have to.
 
 ## Usage
 

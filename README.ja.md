@@ -25,12 +25,10 @@ model.id = nanoid() //=> "V1StGXR8_Z5jdHi6B-myT"
 
 ---
 
-<img src="https://cdn.evilmartians.com/badges/logo-no-label.svg" alt="" width="22" height="16" /> Made at <b><a href="https://evilmartians.com/devtools?utm_source=nanoid&utm_campaign=devtools-button&utm_medium=github">Evil Martians</a></b>, product consulting for <b>developer tools</b>.
+<img src="https://cdn.evilmartians.com/badges/logo-no-label.svg" alt="" width="22" height="16" />  Nano ID は <b><a href="https://evilmartians.com/">Evil Martians</a></b> が開発しています。私たちは<b>開発者ツール、AI、サイバーセキュリティのスタートアップ</b>を支援するアメリカのデザイン・エンジニアリングコンサルティング会社です。
 
 ---
 
-[online tool]: https://gitpod.io/#https://github.com/ai/nanoid/
-[with Babel]: https://developer.epages.com/blog/coding/how-to-transpile-node-modules-with-babel-and-webpack-in-a-monorepo/
 [Size Limit]: https://github.com/ai/size-limit
 
 ## 目次
@@ -40,15 +38,12 @@ model.id = nanoid() //=> "V1StGXR8_Z5jdHi6B-myT"
 - [ベンチマーク](#ベンチマーク)
 - [セキュリティ](#セキュリティ)
 - [インストール](#インストール)
-  - [ESM](#esm)
-  - [CommonJS](#commonjs)
   - [JSR](#jsr)
   - [CDN](#cdn)
 - [API](#api)
-  - [ブロッキング](#ブロッキング)
-  - [非セキュア](#非セキュア)
   - [カスタムアルファベットまたはサイズ](#カスタムアルファベットまたはサイズ)
   - [カスタムランダムバイト生成器](#カスタムランダムバイト生成器)
+  - [非セキュア](#非セキュア)
 - [使用方法](#使用方法)
   - [React](#react)
   - [React Native](#react-native)
@@ -95,8 +90,6 @@ nanoid/non-secure        2,397,594 ops/sec
 rndm                     2,445,462 ops/sec
 ```
 
-テスト構成：Framework 13 7840U, Fedora 39, Node.js 21.6.
-
 ## セキュリティ
 
 _乱数生成器の理論に関する良い記事を参照してください：
@@ -125,36 +118,9 @@ _乱数生成器の理論に関する良い記事を参照してください：
 
 ## インストール
 
-### ESM
-
-Nano ID 5はESMプロジェクト（importを使用）のテストやNode.jsスクリプトで動作します。
-
 ```bash
 npm install nanoid
 ```
-
-### CommonJS
-
-Nano IDは以下のいずれかの方法でCommonJSで使用できます：
-
-- require()を使用してNano IDをインポートできます。最新のNode.js 22.12
-  （標準で動作）またはNode.js 20（--experimental-require-moduleオプション付き）が必要です。
-
-- Node.js 18では、次のようにNano IDを動的にインポートできます：
-
-  ```js
-  let nanoid
-  module.exports.createID = async () => {
-    if (!nanoid) ({ nanoid } = await import('nanoid'))
-    return nanoid() // => "V1StGXR8_Z5jdHi6B-myT"
-  }
-  ```
-
-- Nano ID 3.xを使用できます（まだサポートしています）：
-
-  ```bash
-  npm install nanoid@3
-  ```
 
 ### JSR
 
@@ -184,16 +150,8 @@ import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid/nanoid.js'
 
 ## API
 
-Nano IDには2つのAPI：通常と非セキュアがあります。
-
 デフォルトでは、Nano IDはURL友好的な記号（A-Za-z0-9\_-）を使用し、
 21文字のID（UUID v4と同様の衝突確率を持つ）を返します。
-
-### ブロッキング
-
-Nano IDを使用する安全で最も簡単な方法です。
-
-まれに、ハードウェア乱数生成器のノイズ収集中にCPUを他の作業からブロックする場合があります。
 
 ```js
 import { nanoid } from 'nanoid'
@@ -213,15 +171,6 @@ IDサイズの安全性を[ID衝突確率]計算機で確認することを忘�
 [ランダム生成器](#カスタムランダムバイト生成器)も使用できます。
 
 [ID衝突確率]: https://zelark.github.io/nano-id-cc/
-
-### 非セキュア
-
-デフォルトでは、Nano IDはセキュリティと低衝突確率のためにハードウェアランダムバイト生成を使用します。セキュリティにそれほど関心がない場合は、ハードウェア乱数生成器がない環境でも使用できます。
-
-```js
-import { nanoid } from 'nanoid/non-secure'
-const id = nanoid() //=> "Uakgb_J5m9g-0JDMbcJqLJ"
-```
 
 ### カスタムアルファベットまたはサイズ
 
@@ -283,6 +232,17 @@ const nanoid = customRandom(urlAlphabet, 10, random)
 ```
 
 なお、Nano IDのバージョン間でランダム生成器の呼び出しシーケンスが変更される場合があります。シードベースの生成器を使用している場合、同じ結果を保証するものではありません。
+
+### 非セキュア
+
+Nano IDはセキュリティと低衝突確率のためにハードウェアランダムバイト生成を使用します。セキュリティにそれほど関心がない場合は、ハードウェア乱数生成器がない環境でも使用できます。
+
+```js
+import { nanoid } from 'nanoid/non-secure'
+const id = nanoid() //=> "Uakgb_J5m9g-0JDMbcJqLJ"
+```
+
+なお、非セキュア版はセキュア版よりも*遅い*ことに注意してください。どうしても必要な場合のみ使用してください。
 
 ## 使用方法
 

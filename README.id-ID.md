@@ -25,7 +25,7 @@ Mendukung penjelajah (browser) modern, IE [dengan Babel](https://developer.epage
 
 ---
 
-<img src="https://cdn.evilmartians.com/badges/logo-no-label.svg" alt="" width="22" height="16" />  Made at <b><a href="https://evilmartians.com/devtools?utm_source=nanoid&utm_campaign=devtools-button&utm_medium=github">Evil Martians</a></b>, product consulting for <b>developer tools</b>.
+<img src="https://cdn.evilmartians.com/badges/logo-no-label.svg" alt="" width="22" height="16" />  Nano ID dibuat oleh <b><a href="https://evilmartians.com/">Evil Martians</a></b>, konsultan desain dan rekayasa asal Amerika untuk startup <b>developer tools, AI, dan keamanan siber</b>.
 
 ---
 
@@ -37,10 +37,9 @@ Mendukung penjelajah (browser) modern, IE [dengan Babel](https://developer.epage
 - [Keamanan](#keamanan)
 - [Instalasi](#instalasi)
 - [API](#api)
-  - [Blocking](#blocking)
-  - [Non-Secure](#non-secure)
   - [Alfabet dan Ukuran (Custom)](#alfabet-dan-ukuran-custom)
   - [Generasi Random Bytes (Custom)](#generasi-random-bytes-custom)
+  - [Non-Secure](#non-secure)
 - [Penggunaan](#penggunaan)
   - [React](#react)
   - [React Native](#react-native)
@@ -83,8 +82,6 @@ nanoid/non-secure        2,397,594 ops/sec
 rndm                     2,445,462 ops/sec
 ```
 
-Konfigurasi pengujian: Framework 13 7840U, Fedora 39, Node.js 21.6.
-
 ## Keamanan
 
 _Lihat artikel yang informatif tentang teori angka acak: [Nilai acak yang aman dalam Node.js (English)](https://gist.github.com/joepie91/7105003c3b26e65efcea63f3db82dfba)_.
@@ -106,13 +103,6 @@ _Lihat artikel yang informatif tentang teori angka acak: [Nilai acak yang aman d
 npm install nanoid
 ```
 
-Nano ID 5 hanya tersedia untuk proyek, pengujian, atau skrip ESM Node.js.
-Untuk CommonJS Anda memerlukan Nano ID 3.x (kami masih mendukungnya):
-
-```bash
-npm install nanoid@3
-```
-
 Apabila ingin 'coba-coba' terlebih dahulu, dapat digunakan Nano ID melalui CDN. Hal ini tidak direkomendasikan untuk digunakan pada lingkungan produksi karena performa pemuatan (_loading_) yang berkurang.
 
 ```js
@@ -121,15 +111,7 @@ import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid/nanoid.js'
 
 ## API
 
-Nano ID memiliki dua API: normal dan _non-secure_.
-
 Bawaannya, Nano ID menggunakan simbol yang _URL-friendly_ (`A-Za-z0-9_-`) dan mengembalikan ID dengan 21 karakter (untuk memiliki probabilitas collision / tabrakan yang mirip dengan UUID v4).
-
-### Blocking
-
-Penggunaan Nano ID yang aman dan yang paling mudah.
-
-Dalam kasus langka, fungsi ini dapat menghambat CPU untuk melakukan proses yang lain ketika dalam proses 'noise-collection' untuk generasi nilai acak (yang dilakukan pada perangkat keras).
 
 ```js
 import { nanoid } from 'nanoid'
@@ -145,15 +127,6 @@ nanoid(10) //=> "IRFa-VaY2b"
 Jangan lupa memeriksa tingkat keamanan dari ukuran ID dalam situs [ID collision probability calculator](https://zelark.github.io/nano-id-cc/).
 
 Dapat digunakan pula [custom alphabet](#custom-alphabet-or-size) atau [random generator](#custom-random-bytes-generator) yang lain.
-
-### Non-Secure
-
-Konfigurasi bawaan Nano ID menggunakan random bytes generator yang berasal dari perangkat keras untuk keamanan dan probabilitas collision yang rendah. Apabila tidak terlalu memikirkan soal keamanan, dapat pula menggunakan non-secure generator yang lebih cepat.
-
-```js
-import { nanoid } from 'nanoid/non-secure'
-const id = nanoid() //=> "Uakgb_J5m9g-0JDMbcJqLJ"
-```
 
 ### Alfabet dan Ukuran (Custom)
 
@@ -204,6 +177,17 @@ const nanoid = customRandom(urlAlphabet, 10, random)
 ```
 
 API asinkronus dan non-secure tidak tersedia untuk fungsi `customRandom`.
+
+### Non-Secure
+
+Nano ID menggunakan random bytes generator yang berasal dari perangkat keras untuk keamanan dan probabilitas collision yang rendah. Apabila tidak terlalu memikirkan soal keamanan, dapat pula menggunakannya pada lingkungan tanpa hardware random generator.
+
+```js
+import { nanoid } from 'nanoid/non-secure'
+const id = nanoid() //=> "Uakgb_J5m9g-0JDMbcJqLJ"
+```
+
+Perlu dicatat bahwa versi _non-secure_ _lebih lambat_ daripada versi _secure_. Gunakan hanya jika benar-benar diperlukan.
 
 ## Penggunaan
 
