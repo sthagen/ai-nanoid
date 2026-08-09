@@ -2,6 +2,10 @@
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 6.0.1
+
+- Fixed docs.
+
 ## 6.0.0
 
 - Made `nanoid()` and `customAlphabet()` 4 times faster (by @orhanayd).
@@ -135,6 +139,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   We will support 3.x branch with CommonJS for users who can’t migrate to ESM.
 - Removed Node.js 10 and Node.js 12 support.
 - Reduced npm package size.
+
+## 3.3.17
+
+- Fixed infinite loop on zero size.
 
 ## 3.3.16
 
