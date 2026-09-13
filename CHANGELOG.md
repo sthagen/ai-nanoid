@@ -140,6 +140,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Removed Node.js 10 and Node.js 12 support.
 - Reduced npm package size.
 
+## 3.3.19
+
+- Fixed killing the app by setting huge user ID (by @geoffrey-diederichs).
+
+## 3.3.18
+
+- Fixed infinite loop on async for React Native (by @OvergrowthBeards-JB).
+
 ## 3.3.17
 
 - Fixed infinite loop on zero size.

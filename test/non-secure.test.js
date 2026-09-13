@@ -81,7 +81,7 @@ describe('non secure', () => {
 
     test('has flat distribution', () => {
       let COUNT = 100 * 1000
-      let LENGTH = 5
+      let LENGTH = 30
       let ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
       let nanoid2 = customAlphabet(ALPHABET, LENGTH)
 
